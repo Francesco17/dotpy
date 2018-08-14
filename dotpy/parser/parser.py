@@ -83,7 +83,7 @@ class MyParser(object):
 
     def p_attr_list(self, p):
         '''attr_list : SLPAR a_list SRPAR'''
-        p[0] = p[1]
+        p[0] = p[2]
 
     def p_a_list_1(self, p):
         '''a_list : ID EQUALS ID SEMICOLON a_list
