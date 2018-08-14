@@ -1,3 +1,4 @@
+from dotpy.parser.lexer import MyLexer
 import ply.yacc as yacc
 
 class MyParser(object):
@@ -13,13 +14,14 @@ class MyParser(object):
         return self.parser.parse(s, lexer=self.lexer.lexer)
 
     def p_graph(self, p):
-        '''graph : DIGRAPH TERM CLPAR stmt_list CRPAR
+        '''graph : DIGRAPH ID CLPAR stmt_list CRPAR
                  | DIGRAPH CLPAR stmt_list CRPAR'''
         pass
 
     def p_stmt_list(self, p):
-        '''stmt_list : stmt COMMA stmt_list
+        '''stmt_list : stmt stmt_list
                      | stmt SEMICOLON
+                     | stmt SEMICOLON stmt_list
                      | stmt'''
         if len(p) == 2 or len(p) == 3:
             p[0] = [p[1]]
@@ -30,17 +32,17 @@ class MyParser(object):
         '''stmt : node_stmt
                 | edge_stmt
                 | attr_stmt
-                | TERM EQUALS TERM'''
+                | ID EQUALS ID'''
         pass
 
     def p_node_stmt(self, p):
-        '''node_stmt : NODE SEMICOLON
-                     | NODE attr_list'''
+        '''node_stmt : node_id attr_list
+                     | node_id'''
         pass
 
     def p_edge_stmt(self, p):
-        '''edge_stmt : EDGE SEMICOLON
-                     | EDGE attr_list'''
+        '''edge_stmt : node_id edge_rhs attr_list
+                     | node_id edge_rhs'''
         pass
 
     def p_attr_stmt(self, p):
@@ -55,13 +57,21 @@ class MyParser(object):
                      | SLPAR SRPAR'''
         pass
 
+    def p_edge_rhs(self, p):
+        '''edge_rhs : ARROW node_id edge_rhs
+                    | ARROW node_id'''
+
+    def p_node_id(self, p):
+        '''node_id : ID'''
+        pass
+
     def p_a_list(self, p):
-        '''a_list : TERM EQUALS TERM SEMICOLON a_list
-                  | TERM EQUALS TERM COMMA a_list
-                  | TERM EQUALS TERM SEMICOLON
-                  | TERM EQUALS TERM COMMA
-                  | TERM EQUALS TERM a_list
-                  | TERM EQUALS TERM'''
+        '''a_list : ID EQUALS ID SEMICOLON a_list
+                  | ID EQUALS ID COMMA a_list
+                  | ID EQUALS ID a_list
+                  | ID EQUALS ID SEMICOLON
+                  | ID EQUALS ID COMMA
+                  | ID EQUALS ID'''
         pass
 
     def p_error(self, p):
