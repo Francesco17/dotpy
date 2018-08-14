@@ -99,9 +99,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# PDDL documents
-*.pddl
-PDDLParser/*.pddl
+# files test
+files_test/
 
 # DOT files
 *.dot
