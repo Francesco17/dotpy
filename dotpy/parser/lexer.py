@@ -6,40 +6,28 @@ class MyLexer(object):
     reserved = {
         'digraph':  'DIGRAPH',
         'node':     'NODE',
-        'edge':     'EDGE',
-        #'rankdir':  'RANKDIR',
-        #'center':   'CENTER',
-        #'size':     'SIZE',
-        #'label':    'LABEL',
-        'init':     'INIT'
+        'edge':     'EDGE'
     }
     # List of token names.   This is always required
     tokens = (
         'ID',
-        # 'NUMBER',
         'COMMA',
-        # 'QUOTE',
         'ARROW',
         'SLPAR',
         'SRPAR',
         'SEMICOLON',
         'EQUALS',
         'CLPAR',
-        'CRPAR',
-        'LPAR',
-        'RPAR'
+        'CRPAR'
     ) + tuple(reserved.values())
 
     # Regular expression rules for simple tokens
     t_COMMA = r','
-    # t_QUOTE = r'"'
     t_ARROW = r'\->'
     t_SLPAR = r'\['
     t_SRPAR = r'\]'
     t_CLPAR = r'\{'
     t_CRPAR = r'\}'
-    t_LPAR = r'\('
-    t_RPAR = r'\)'
     t_SEMICOLON = r';'
     t_EQUALS = r'='
 
@@ -80,32 +68,32 @@ class MyLexer(object):
         self.lexer = lex.lex(module=self, **kwargs)
 
     # Test it output
-    def test(self,data):
-        self.lexer.input(data)
-        while True:
-            tok = self.lexer.token()
-            if not tok:
-                break
-            print(tok)
-
-# Build the lexer and try it out
-m = MyLexer()
-m.build()           # Build the lexer
-m.test('''digraph MONA_DFA {
- rankdir = LR;
- center = true;
- size = "7.5,10.5";
- edge [fontname = Courier];
- node [height = .5, width = .5];
- node [shape = doublecircle]; 4;
- node [shape = circle]; 0; 1; 2; 3;
- node [shape = box];
- init [shape = plaintext, label = ""];
- init -> 0;
- 0 -> 1 [label="X"];
- 1 -> 2 [label="X"];
- 2 -> 3 [label="0"];
- 2 -> 4 [label="1"];
- 3 -> 3 [label="X"];
- 4 -> 4 [label="X"];
-}''')     # Test it
+#     def test(self,data):
+#         self.lexer.input(data)
+#         while True:
+#             tok = self.lexer.token()
+#             if not tok:
+#                 break
+#             print(tok)
+#
+# # Build the lexer and try it out
+# m = MyLexer()
+# m.build()           # Build the lexer
+# m.test('''digraph MONA_DFA {
+#  rankdir = LR;
+#  center = true;
+#  size = "7.5,10.5";
+#  edge [fontname = Courier];
+#  node [height = .5, width = .5];
+#  node [shape = doublecircle]; 4;
+#  node [shape = circle]; 0; 1; 2; 3;
+#  node [shape = box];
+#  init [shape = plaintext, label = ""];
+#  init -> 0;
+#  0 -> 1 [label="X"];
+#  1 -> 2 [label="X"];
+#  2 -> 3 [label="0"];
+#  2 -> 4 [label="1"];
+#  3 -> 3 [label="X"];
+#  4 -> 4 [label="X"];
+# }''')     # Test it
