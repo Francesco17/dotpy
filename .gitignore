@@ -101,6 +101,11 @@ __pycache__/
 
 # files test
 files_test/
+main.py
+
+# parser tables
+dotpy/parser/parser.out
+dotpy/parser/parsetab.py
 
 # DOT files
 *.dot
