@@ -1,4 +1,5 @@
 import ply.lex as lex
+from ply.lex import TOKEN
 
 class MyLexer(object):
 
@@ -6,18 +7,18 @@ class MyLexer(object):
         'digraph':  'DIGRAPH',
         'node':     'NODE',
         'edge':     'EDGE',
-        'rankdir':  'RANKDIR',
-        'center':   'CENTER',
-        'size':     'SIZE',
-        'init':     'INIT',
-        'label':    'LABEL'
+        #'rankdir':  'RANKDIR',
+        #'center':   'CENTER',
+        #'size':     'SIZE',
+        #'label':    'LABEL',
+        'init':     'INIT'
     }
     # List of token names.   This is always required
     tokens = (
-        'TERM',
-        'NUMBER',
+        'ID',
+        # 'NUMBER',
         'COMMA',
-        'QUOTE',
+        # 'QUOTE',
         'ARROW',
         'SLPAR',
         'SRPAR',
@@ -31,7 +32,7 @@ class MyLexer(object):
 
     # Regular expression rules for simple tokens
     t_COMMA = r','
-    t_QUOTE = r'"'
+    # t_QUOTE = r'"'
     t_ARROW = r'\->'
     t_SLPAR = r'\['
     t_SRPAR = r'\]'
@@ -42,17 +43,33 @@ class MyLexer(object):
     t_SEMICOLON = r';'
     t_EQUALS = r'='
 
-    t_ignore = r' '+'\n'
+    t_ignore = r'//'+ ' ' + '\n'
 
-    def t_TERM(self, t):
-        r'[a-zA-Z\_]+'
-        t.type = MyLexer.reserved.get(t.value, 'TERM')
-        return t  # Check for reserved words
+    digit = r'[0-9]'
+    alphabet = r'[a-zA-Z_]'
 
-    def t_NUMBER(self, t):
-        r'[0-9\.]+'
-        t.type = MyLexer.reserved.get(t.value, 'NUMBER')
-        return t  # Check for reserved words
+    name = '(' + alphabet + ')((' + alphabet + ')|(' + digit + '))*'
+    @TOKEN(name)
+    def t_ID_Name(self, t):
+        if t.value in self.reserved:
+            t.type = self.reserved[t.value]
+        else:
+            t.type = 'ID'
+        return t
+
+    name = r'-?((\.[0-9]+)|([0-9]+(\.[0-9]*)?))'
+    @TOKEN(name)
+    def t_ID_Number(self, t):
+        t.type = 'ID'
+        t.value = float(t.value)
+        return t
+
+    name = r'".*?"'
+    @TOKEN(name)
+    def t_ID_String(self, t):
+        t.type = 'ID'
+        t.value = t.value[1:-1]
+        return t
 
     def t_error(self, t):
         print("Illegal character '%s' in the input formula" % t.value[0])
