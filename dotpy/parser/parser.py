@@ -23,11 +23,11 @@ class MyParser(object):
 
     def p_graph_1(self, p):
         '''graph : DIGRAPH CLPAR stmt_list CRPAR'''
-        p[0] = Digraph(p[3])
+        p[0] = Digraph("", p[3])
 
     def p_graph_2(self, p):
         '''graph : DIGRAPH ID CLPAR stmt_list CRPAR'''
-        p[0] = Digraph(p[2], p[3])
+        p[0] = Digraph(p[2], p[4])
 
     def p_stmt_list_1(self, p):
         '''stmt_list : stmt SEMICOLON stmt_list'''
@@ -36,6 +36,11 @@ class MyParser(object):
     def p_stmt_list_2(self, p):
         '''stmt_list : stmt stmt_list'''
         p[0] = [p[1]] + p[2]
+
+    def p_stmt_list_3(self, p):
+        '''stmt_list : stmt SEMICOLON
+                     | stmt'''
+        p[0] = [p[1]]
 
     def p_stmt_1(self, p):
         '''stmt : node_stmt
@@ -97,13 +102,3 @@ class MyParser(object):
 
     def p_error(self, p):
         print("Error: syntax error when parsing '{}'".format(p))
-
-
-if __name__ == '__main__':
-    par = MyParser()
-    with open('PDDLparser/prob.pddl', 'r') as f:
-        domain = f.read()
-        f.close()
-
-    result = par(domain)
-    print(result)
