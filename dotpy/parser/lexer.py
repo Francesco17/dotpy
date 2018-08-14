@@ -21,7 +21,7 @@ class MyLexer(object):
         'ARROW',
         'SLPAR',
         'SRPAR',
-        'COLON',
+        'SEMICOLON',
         'EQUALS',
         'CLPAR',
         'CRPAR',
@@ -39,7 +39,7 @@ class MyLexer(object):
     t_CRPAR = r'\}'
     t_LPAR = r'\('
     t_RPAR = r'\)'
-    t_COLON = r';'
+    t_SEMICOLON = r';'
     t_EQUALS = r'='
 
     t_ignore = r' '+'\n'
