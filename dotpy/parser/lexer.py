@@ -45,18 +45,25 @@ class MyLexer(object):
             t.type = 'ID'
         return t
 
-    name = r'-?((\.[0-9]+)|([0-9]+(\.[0-9]*)?))'
+    name = r'-?((\.[0-9]+)|([0-9]+(\.[0-9]+)))'
     @TOKEN(name)
-    def t_ID_Number(self, t):
+    def t_ID_Float(self, t):
         t.type = 'ID'
         t.value = float(t.value)
+        return t
+
+    name = r'[-+]?\d+'
+    @TOKEN(name)
+    def t_ID_Int(self, t):
+        t.type = 'ID'
+        t.value = int(t.value)
         return t
 
     name = r'".*?"'
     @TOKEN(name)
     def t_ID_String(self, t):
         t.type = 'ID'
-        t.value = t.value[1:-1]
+       # t.value = t.value[1:-1]
         return t
 
     def t_error(self, t):

@@ -7,4 +7,4 @@ with open('dotpy/files_test/intautoma.dot', 'r') as f:
 
 # print(dot)
 result = par(dot)
-print(type(result))
+print(result)
