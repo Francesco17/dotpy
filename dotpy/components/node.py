@@ -1,7 +1,7 @@
 class Node:
 
     def __init__(self, name, attr_list):
-        self.name = name
+        self.name = str(name)
         self.attr_list = attr_list
 
     def __str__(self):
