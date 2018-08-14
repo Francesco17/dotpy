@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-# with open('README.md') as readme_file:
-#     readme = readme_file.read()
+with open('README.md') as readme_file:
+    readme = readme_file.read()
 
 requirements = ['ply']
 
@@ -18,8 +18,8 @@ setup(
     description="Python .dot parser specific for MONA dfa output",
     install_requires=requirements,
     license="MIT license",
-    # long_description=readme,
-    # long_description_content_type="text/markdown",
+    long_description=readme,
+    long_description_content_type="text/markdown",
     include_package_data=True,
     keywords='dotpy',
     name='dotpy',
