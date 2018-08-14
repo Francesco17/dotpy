@@ -6,6 +6,6 @@ class AttributeStatement:
 
     def __str__(self):
         if self.keyword:
-            return "{0} [{1}];".format(self.keyword, " ".join(map(str, self.attr_list)))
+            return "{0} [{1}];".format(self.keyword, ", ".join(map(str, self.attr_list)))
         else:
             return "{0};".format(" ".join(map(str, self.attr_list)))
