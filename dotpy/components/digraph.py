@@ -36,3 +36,10 @@ class Digraph:
 
     def add_edge(self, source, destination):
         self.stmt_list.append(Edge(source, destination, []))
+
+    def is_singleton(self):
+        nodes = self.get_nodes()
+        if len(nodes) > 2:
+            return False
+        else:
+            return True
