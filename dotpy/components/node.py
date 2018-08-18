@@ -9,3 +9,6 @@ class Node:
             return "{0} [{1}];".format(self.name, ", ".join(map(str, self.attr_list)))
         else:
             return "{0};".format(self.name)
+
+    def get_name(self):
+        return self.name

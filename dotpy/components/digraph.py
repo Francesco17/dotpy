@@ -10,6 +10,20 @@ class Digraph:
     def __str__(self):
         return 'digraph {0} {{\n{1}\n}}'.format(self.name, "\n".join(map(str, self.stmt_list)))
 
+    def get_nodes(self):
+        nodes = []
+        for stmt in self.stmt_list:
+            if isinstance(stmt, Node):
+                nodes.append(stmt)
+        return nodes
+
+    def get_edges(self):
+        edges = []
+        for stmt in self.stmt_list:
+            if isinstance(stmt, Edge):
+                edges.append(stmt)
+        return edges
+
     def delete_node(self, name):
         for stmt in self.stmt_list:
             if isinstance(stmt, Node) and stmt.name == name:
