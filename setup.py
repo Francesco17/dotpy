@@ -25,5 +25,5 @@ setup(
     name='dotpy',
     packages=find_packages(include=['dotpy*']),
     url='https://github.com/Francesco17/dotpy',
-    version='0.0.1',
+    version='0.0.2',
 )
